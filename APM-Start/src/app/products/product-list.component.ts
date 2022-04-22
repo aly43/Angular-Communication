@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { IProduct } from './product';
 import { ProductService } from './product.service';
@@ -9,7 +9,7 @@ import { ProductService } from './product.service';
 })
 export class ProductListComponent implements OnInit {
     pageTitle: string = 'Product List';
-    listFilter: string;
+    @Input() listFilter: string;
     showImage: boolean;
 
     imageWidth: number = 50;
@@ -29,6 +29,11 @@ export class ProductListComponent implements OnInit {
             },
             (error: any) => this.errorMessage = <any>error
         );
+    }
+
+    onFilterChange(filter: string) {
+      this.listFilter = filter;
+      this.performFilter(this.listFilter)
     }
 
     toggleImage(): void {
